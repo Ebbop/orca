@@ -29,13 +29,6 @@ export function makeRemoteDirectoryCommand(host: RemoteHostPlatform, remotePath:
   )
 }
 
-export function makeRemoteExecutableCommand(host: RemoteHostPlatform, remotePath: string): string {
-  if (isWindowsRemoteHost(host)) {
-    return powerShellCommand(`if (Test-Path -LiteralPath ${powerShellLiteral(remotePath)}) { }`)
-  }
-  return `chmod +x ${shellEscape(remotePath)} 2>/dev/null; true`
-}
-
 export function removeRemoteFileCommand(host: RemoteHostPlatform, remotePath: string): string {
   if (!isWindowsRemoteHost(host)) {
     return `rm -f ${shellEscape(remotePath)} 2>/dev/null; true`
